@@ -21,7 +21,9 @@
 
     # always loaded
     'data': [
+        'security/osl_hospital_groups.xml',
         'security/ir.model.access.csv',
+        'security/osl_hospital_appointment_secutity.xml',
 
         'views/odoo_hospital_menu.xml',
         'views/odoo_hospital_doctor_views.xml',
@@ -43,6 +45,7 @@
     ],
     # only loaded in demonstration mode
     'demo': [
+        'demo/res_users_demo.xml',
         'demo/osl_type_disease_demo.xml',
         'demo/osl_doctor_demo.xml',
         'demo/osl_patient_demo.xml',

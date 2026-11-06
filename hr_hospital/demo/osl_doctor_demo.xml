@@ -8,6 +8,7 @@
             <field name="description">Doctor House M.D.</field>
             <field name="doctor_category_id" ref="doctor_category_3"/>
             <field name="gender">male</field>
+            <field name="user" ref="osl_user_demo_doctor"/>
         </record>
 
         <record id="2" model="osl.hospital.doctor">
@@ -41,6 +42,7 @@
             <field name="doctor_category_id" ref="doctor_category_1"/>
             <field name="mentor" ref="1"/>
             <field name="gender">male</field>
+            <field name="user" ref="osl_user_demo_intern"/>
         </record>
 
         <record id="6" model="osl.hospital.doctor">

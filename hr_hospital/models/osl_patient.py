@@ -16,6 +16,11 @@ class OSLPatient(models.Model):
         string='Doctor',
     )
 
+    user = fields.Many2one(
+        comodel_name='res.users',
+        string='User',
+    )
+
     insurance_policy_number = fields.Char(size=20)
 
     history_ids = fields.One2many(
