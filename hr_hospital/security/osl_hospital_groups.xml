@@ -42,7 +42,7 @@
         <field name="implied_ids" eval="[
             Command.link(ref('osl_hospital_group_doctor')),
         ]"/>
-        <field name="comment">All appointments.</field>
+        <field name="comment">All appointments + EDIT.</field>
     </record>
 
     <record id="osl_hospital_group_administrator" model="res.groups">

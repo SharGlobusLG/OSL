@@ -33,7 +33,7 @@
         <field name="login">manager</field>
         <field name="password">1</field>
         <field name="group_ids" eval="[Command.set([
-            ref('osl_hospital_group_administrator'),
+            ref('osl_hospital_group_manager'),
         ])]"/>
     </record>
 </odoo>
