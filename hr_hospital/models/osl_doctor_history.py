@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class OSLDoctorHistory(models.Model):
@@ -62,3 +63,12 @@ class OSLDoctorHistory(models.Model):
                 displayName += f' ({record.doctor_id.doctor_category_id.display_name})'
 
             record.display_name = displayName + ' ' + str(record.set_date)
+
+    @api.constrains('set_date', 'exchange_date')
+    def _check_parent_recursion(self):
+
+        for rec in self:
+            if rec.set_date and rec.exchange_date and (rec.exchange_date < rec.set_date):
+                raise ValidationError(
+                    self.env._("Doctor's exchange dade can't before set date")
+                )

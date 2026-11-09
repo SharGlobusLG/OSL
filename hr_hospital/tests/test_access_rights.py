@@ -1,28 +1,25 @@
-from datetime import datetime
-
-from odoo.exceptions import AccessError
 from odoo.tests import tagged
 
 from .common import OSLTestCommon
 
 
-@tagged('post_install', '-at_install', 'osl', 'osl_access')
-class TestOSLAccessRights(OSLTestCommon):
+@tagged('osl')
+class TestAppointmentAccessRights(OSLTestCommon):
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def test_patient_can_only_read_appointments(self):
+        appointment = self.env['osl.hospital.appointment']
+        patient_model = appointment.with_user(self.patient_user)
 
-        cls.doctor = cls.env['osl.hospital.doctor'].create({'name': 'test_doctor'})
-        cls.patient = cls.env['osl.hospital.doctor'].create({
-            'name': 'test_patient',
-            'doctor_id':cls.doctor
-        })
+        self.assertTrue(patient_model.has_access('read'))
+        self.assertFalse(patient_model.has_access('create'))
+        self.assertFalse(patient_model.has_access('write'))
+        self.assertFalse(patient_model.has_access('unlink'))
 
-        cls.appointment = cls.env['osl.hospital.appointment'].create(
-            {'state': 'scheduled',
-             'doctor_id': cls.doctor,
-             'patient_id':cls.patient,
-             'scheduled_date':datetime(2026, 1, 15, 10, 0)
-             }
-        )
+    def test_manager_can_read_and_write_appointments(self):
+        appointment = self.env['osl.hospital.appointment']
+        manager_model = appointment.with_user(self.manager_user)
+
+        self.assertTrue(manager_model.has_access('read'))
+        self.assertTrue(manager_model.has_access('write'))
+        self.assertFalse(manager_model.has_access('create'))
+        self.assertFalse(manager_model.has_access('unlink'))
