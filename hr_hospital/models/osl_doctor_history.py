@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class OSLDoctorHistory(models.Model):
     _name = 'osl.hospital.doctor.history'
-    _description = 'Історія персональних лікарів'
+    _description = 'Personal Doctors History'
     _rec_names_search = ['patient_id', 'doctor_id']
 
     display_name = fields.Char(compute='_compute_display_name', store=False)
@@ -44,8 +44,8 @@ class OSLDoctorHistory(models.Model):
                 rec.exchange_date = None
                 return {
                     'warning': {
-                        'title': "Invalid exchange date",
-                        'message': "Дата зміни лікаря не може бути раніше ніж дата призначення",
+                        'title': self.env._("Invalid exchange date"),
+                        'message': self.env._("Doctor's exchange dade can't before set date"),
                     }
                 }
         return {}

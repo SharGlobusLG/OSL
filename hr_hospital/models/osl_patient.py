@@ -9,7 +9,7 @@ class OSLPatient(models.Model):
     name = fields.Char()
     description = fields.Text()
 
-    phone = fields.Char(string="Телефон")
+    phone = fields.Char(string="Phone")
 
     doctor_id = fields.Many2one(
         comodel_name='osl.hospital.doctor',
@@ -47,7 +47,7 @@ class OSLPatient(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Appointments by Patient',
+            'name': self.env._('Appointments by Patient'),
             'res_model': 'osl.hospital.appointment',
             'view_mode': 'list',
             'domain': [('patient_id', '=', self.id)],
@@ -58,7 +58,7 @@ class OSLPatient(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'New Appointment by Patient',
+            'name': self.env._('New Appointment by Patient'),
             'res_model': 'osl.hospital.appointment',
             'view_mode': 'form',
             'target': 'new',

@@ -4,16 +4,17 @@ from odoo.exceptions import UserError, ValidationError
 
 class OSLTypeDisease(models.Model):
     _name = 'osl.hospital.type.disease'
-    _description = 'Type disease'
+    _description = 'Type Disease'
     _parent_store = True
     _parent_name = 'parent_id'
     # _rec_name = 'display_name'
 
     name = fields.Char(
         required=True,
+        translate=True
     )
 
-    description = fields.Text()
+    description = fields.Text(translate=True)
 
     parent_id = fields.Many2one(
         comodel_name='osl.hospital.type.disease',
@@ -34,8 +35,8 @@ class OSLTypeDisease(models.Model):
     def _check_parent_recursion(self):
         if self._has_cycle():
             raise ValidationError(
-                "Error: you cannot create a recursive hierarchy. "
-                  "A disease cannot be its own parent or ancestor."
+                self.env._("Error: you cannot create a recursive hierarchy. "
+                  "A disease cannot be its own parent or ancestor.")
             )
 
     @api.onchange('parent_id')
@@ -44,8 +45,8 @@ class OSLTypeDisease(models.Model):
             self.parent_id = False
             return {
                 'warning': {
-                    'title': 'Invalid parent',
-                    'message': 'A disease cannot be its own parent.',
+                    'title': self.env._('Invalid parent'),
+                    'message': self.env._('A disease cannot be its own parent.'),
                 }
             }
         return {}
@@ -69,8 +70,8 @@ class OSLTypeDisease(models.Model):
         for record in self:
             if record.child_ids:
                 child_names = ', '.join(record.child_ids.mapped('display_name')[:5])
-                raise UserError(
-                    f"Cannot delete {record.display_name} because it has child diseases: {child_names}\n"
-                    "Please delete or re-parent the children first."
+                raise UserError(self.env._(
+                    "Cannot delete %(display_name) because it has child diseases: %(child_names)\n"
+                    "Please delete or re-parent the children first.", display_name=record.display_name, child_names=child_names)
                 )
         return super().unlink()

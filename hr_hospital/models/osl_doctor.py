@@ -68,15 +68,15 @@ class OSLDoctor(models.Model):
     def _check_mentor(self):
         for record in self:
             if record.mentor.is_intern:
-                raise ValidationError("Не можна обрати ментором лікаря, який сам є інтерном")
+                raise ValidationError(self.env._("Inter enable be a Mentors"))
             if record.mentor.id == record.id:
-                raise ValidationError("Не можна обрати ментором себє")
+                raise ValidationError(self.env._("You can't set you self as Mentor"))
 
     def new_appointments(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'New Appointment by Patient',
+            'name': self.env._('New Appointment by Patient'),
             'res_model': 'osl.hospital.appointment',
             'view_mode': 'form',
             'target': 'new',

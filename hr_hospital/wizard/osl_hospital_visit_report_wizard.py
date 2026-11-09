@@ -8,22 +8,22 @@ from ..constants import COMPLETED
 
 class OSLVisitReportWizard(models.TransientModel):
     _name = 'visit.report.wizard'
-    _description = "Візард формування звіту по візитах пацієнтів"
+    _description = "Patient Report Wizard"
 
     doctor_ids = fields.Many2many(
         comodel_name='osl.hospital.doctor',
-        string='Лікарі',
+        string='Doctors',
     )
     patient_ids = fields.Many2many(
         comodel_name='osl.hospital.patient',
-        string='Пацієнти',
+        string='Patients',
     )
-    date_start = fields.Date(string='Початок періоду')
-    date_end = fields.Date(string='Кінець періоду')
-    only_completed = fields.Boolean(string='Лише завершені візити')
+    date_start = fields.Date(string='Begin period')
+    date_end = fields.Date(string='End period')
+    only_completed = fields.Boolean(string='Finished only')
     disease_ids = fields.Many2many(
         comodel_name='osl.hospital.type.disease',
-        string='Хвороба',
+        string='disease',
     )
 
     @api.model
@@ -43,7 +43,7 @@ class OSLVisitReportWizard(models.TransientModel):
     def action_view_report(self):
         self.ensure_one()
         if self.date_start and self.date_end and self.date_start > self.date_end:
-            raise ValidationError('Початок періоду не може бути пізніше за його кінець.')
+            raise ValidationError('Begin date should be less then end date')
 
         domain = []
         if self.doctor_ids:
@@ -61,7 +61,7 @@ class OSLVisitReportWizard(models.TransientModel):
 
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Звіт по візитах',
+            'name': self.env._('Visits report'),
             'res_model': 'osl.hospital.appointment',
             'view_mode': 'list,form',
             'domain': domain,

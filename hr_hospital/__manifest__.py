@@ -1,5 +1,5 @@
 {
-    'name': "HR Hospital ( Lesson 4.0 )",
+    'name': "HR Hospital ( Lesson 6.0 )",
     'sequence': -1000000,
 
     'summary': 'Odoo Scholl Lesson 4.0 - Hr Hospital',

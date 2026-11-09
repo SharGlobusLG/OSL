@@ -2,12 +2,14 @@ import logging
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools import LazyTranslate
 
 from ..constants import APPOINTMENT_STATES, CANCELLED, COMPLETED, SCHEDULED
 
 _logger = logging.getLogger(__name__)
 
-APPOINTMENT_DONE = 'Appointment already done'
+_lt = LazyTranslate(__name__)
+APPOINTMENT_DONE = _lt('Appointment already done')
 
 class OSLAppointment(models.Model):
     _name = 'osl.hospital.appointment'
@@ -16,19 +18,19 @@ class OSLAppointment(models.Model):
 
     state = fields.Selection(
         selection=APPOINTMENT_STATES,
-        string='Статус візиту',
+        string='Visit State',
         default=SCHEDULED,
         tracking=True
     )
 
     scheduled_date = fields.Datetime(
-        string='Запланована дата',
+        string='Scheduled Date',
         required=True,
         tracking=True
     )
 
     actual_date = fields.Datetime(
-        string='Фактична дата'
+        string='Actual Date'
     )
 
     doctor_id = fields.Many2one(
@@ -75,7 +77,7 @@ class OSLAppointment(models.Model):
             if self.env.context.get('_force_unlink'):
                 return super().unlink()
             raise UserError(
-                "Cannot delete a finished record."
+                self.env._("Cannot Delete a Finished Appointment.")
             )
         return super().unlink()
 
@@ -88,7 +90,7 @@ class OSLAppointment(models.Model):
                 return {
                     'warning': {
                         'title': APPOINTMENT_DONE,
-                        'message': "Візит вже відбувся.",
+                        'message': APPOINTMENT_DONE,
                     }
                 }
         return {}
@@ -111,7 +113,7 @@ class OSLAppointment(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Така сама хвороба',
+            'name': self.env._('Same Disease List'),
             'res_model': 'osl.hospital.appointment',
             'view_mode': 'list',
             'domain': [("disease_id", "=", self.disease_id.id)],
