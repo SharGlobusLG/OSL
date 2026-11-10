@@ -2,6 +2,7 @@ from odoo import api, fields, models
 
 
 class OSLPatient(models.Model):
+    """List of Patient"""
     _name = 'osl.hospital.patient'
     _inherit = ['osl.hospital.medic.info']
     _description = 'Patient'
@@ -44,6 +45,9 @@ class OSLPatient(models.Model):
             ) or self.phone
 
     def show_appointments(self):
+        """
+        :return: 'Action' for open list of Appointment form for current patient
+        """
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
@@ -55,6 +59,9 @@ class OSLPatient(models.Model):
         }
 
     def new_appointments(self):
+        """
+        :return: 'Action' for open new Appointment form for current patient
+        """
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
@@ -66,6 +73,9 @@ class OSLPatient(models.Model):
         }
 
     def _compute_count_appointments(self):
+        """
+        :return: Number of appointments for the current patient
+        """
         self.ensure_one()
         for rec in self:
             rec.count_appointments = self.env['osl.hospital.appointment'].search_count([('patient_id', '=', self.id)])

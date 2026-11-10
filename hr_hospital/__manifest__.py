@@ -2,9 +2,9 @@
     'name': "HR Hospital ( Lesson 6.0 )",
     'sequence': -1000000,
 
-    'summary': 'Odoo Scholl Lesson 4.0 - Hr Hospital',
+    'summary': 'Odoo Scholl Lesson 6.0 - Hr Hospital',
 
-    'description': 'Odoo Scholl Lesson 4.0 - Hr Hospital',
+    'description': 'Odoo Scholl Lesson 6.0 - Hr Hospital',
 
     'author': "Volodymyr",
     'website': "https://odoo.school/",
@@ -14,7 +14,7 @@
     # for the full list
     'license': 'OPL-1',
     'category': 'Human Resources',
-    'version': '19.0.0.1',
+    'version': '19.0.6.3',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'phone_validation', 'mail', 'web'],

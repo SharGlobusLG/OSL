@@ -3,6 +3,8 @@ from odoo import api, fields, models
 
 
 class OSLMedicInfo(models.AbstractModel):
+    """General information regarding blood type and date of birth for the doctor and the patient
+    """
     _name = 'osl.hospital.medic.info'
     _description = 'Medical info'
 
@@ -36,6 +38,9 @@ class OSLMedicInfo(models.AbstractModel):
 
     @api.depends('birth_date')
     def _compute_age(self):
+        """
+        :return: Calculated age of patient or doctor
+        """
         today = fields.Date.today()
         for record in self:
             if not record.birth_date:

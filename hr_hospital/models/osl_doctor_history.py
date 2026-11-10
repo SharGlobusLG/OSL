@@ -3,6 +3,8 @@ from odoo.exceptions import ValidationError
 
 
 class OSLDoctorHistory(models.Model):
+    """ History of changes to the doctor assigned to a patient.
+    """
     _name = 'osl.hospital.doctor.history'
     _description = 'Personal Doctors History'
     _rec_names_search = ['patient_id', 'doctor_id']
@@ -40,6 +42,8 @@ class OSLDoctorHistory(models.Model):
 
     @api.onchange('set_date', 'exchange_date')
     def _onchange_set_date_exchange_date(self):
+        """The exchange date cannot be earlier than the assignment date.
+        """
         for rec in self:
             if rec.set_date and rec.exchange_date and (rec.exchange_date < rec.set_date):
                 rec.exchange_date = None
@@ -53,6 +57,9 @@ class OSLDoctorHistory(models.Model):
 
     @api.depends('patient_id', 'doctor_id', 'set_date')
     def _compute_display_name(self):
+        """The display name is composed of reference fields and a date.
+        :return: Text with display name.
+        """
         for record in self:
             displayName = ''
             if record.patient_id:
@@ -66,7 +73,8 @@ class OSLDoctorHistory(models.Model):
 
     @api.constrains('set_date', 'exchange_date')
     def _check_parent_recursion(self):
-
+        """ The doctor exchange date must always be later than the set date.
+        """
         for rec in self:
             if rec.set_date and rec.exchange_date and (rec.exchange_date < rec.set_date):
                 raise ValidationError(

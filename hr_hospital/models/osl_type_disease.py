@@ -3,6 +3,7 @@ from odoo.exceptions import UserError, ValidationError
 
 
 class OSLTypeDisease(models.Model):
+    """Hierarchical tree of diseases"""
     _name = 'osl.hospital.type.disease'
     _description = 'Type Disease'
     _parent_store = True
@@ -67,6 +68,7 @@ class OSLTypeDisease(models.Model):
     #             record.display_name = record.name or ''
 
     def unlink(self):
+        """ diseases with child elements cant be deleted """
         for record in self:
             if record.child_ids:
                 child_names = ', '.join(record.child_ids.mapped('display_name')[:5])
