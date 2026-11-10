@@ -2,6 +2,7 @@ from odoo import api, fields, models
 
 
 class OSLPatient(models.Model):
+    """List of Patient"""
     _name = 'osl.hospital.patient'
     _inherit = ['osl.hospital.medic.info']
     _description = 'Patient'
@@ -9,11 +10,16 @@ class OSLPatient(models.Model):
     name = fields.Char()
     description = fields.Text()
 
-    phone = fields.Char(string="Телефон")
+    phone = fields.Char(string="Phone")
 
     doctor_id = fields.Many2one(
         comodel_name='osl.hospital.doctor',
         string='Doctor',
+    )
+
+    user = fields.Many2one(
+        comodel_name='res.users',
+        string='User',
     )
 
     insurance_policy_number = fields.Char(size=20)
@@ -39,10 +45,13 @@ class OSLPatient(models.Model):
             ) or self.phone
 
     def show_appointments(self):
+        """
+        :return: 'Action' for open list of Appointment form for current patient
+        """
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Appointments by Patient',
+            'name': self.env._('Appointments by Patient'),
             'res_model': 'osl.hospital.appointment',
             'view_mode': 'list',
             'domain': [('patient_id', '=', self.id)],
@@ -50,10 +59,13 @@ class OSLPatient(models.Model):
         }
 
     def new_appointments(self):
+        """
+        :return: 'Action' for open new Appointment form for current patient
+        """
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'New Appointment by Patient',
+            'name': self.env._('New Appointment by Patient'),
             'res_model': 'osl.hospital.appointment',
             'view_mode': 'form',
             'target': 'new',
@@ -61,6 +73,9 @@ class OSLPatient(models.Model):
         }
 
     def _compute_count_appointments(self):
+        """
+        :return: Number of appointments for the current patient
+        """
         self.ensure_one()
         for rec in self:
             rec.count_appointments = self.env['osl.hospital.appointment'].search_count([('patient_id', '=', self.id)])

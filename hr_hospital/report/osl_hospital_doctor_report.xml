@@ -38,10 +38,10 @@
                 <thead style="background-color: lightgray;">
                     <tr>
                         <th>
-                            <p>Запланована дата</p>
+                            <p>Scheduled Date</p>
                         </th>
                         <th>
-                            <p>Фактична дата</p>
+                            <p>Actual Date</p>
                         </th>
                         <th>
                             <p>Patient</p>

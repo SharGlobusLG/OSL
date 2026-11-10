@@ -14,6 +14,7 @@
                     <field name="gender"/>
                     <field name="birth_date"/>
                     <field name="age"/>
+                    <field name="user"/>
                 </list>
             </field>
         </record>
@@ -52,6 +53,7 @@
                                 <field name="phone" widget="phone"/>
                                 <field name="doctor_id"/>
                                 <field name="insurance_policy_number"/>
+                                <field name="user"/>
                             </group>
                             <group>
                                 <field name="blood_type"/>

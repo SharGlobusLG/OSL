@@ -3,7 +3,7 @@
         <field name="name">visit.report.wizard.form</field>
         <field name="model">visit.report.wizard</field>
         <field name="arch" type="xml">
-            <form string="Звіт по візитах">
+            <form string="Visits Report">
                 <group>
                     <group>
                         <field name="doctor_ids" widget="many2many_tags" options="{'no_create': True}"/>
@@ -17,15 +17,15 @@
                     </group>
                 </group>
                 <footer>
-                    <button name="action_view_report" type="object" string="Сформувати звіт" class="btn-primary"/>
-                    <button special="cancel" string="Скасувати" class="btn-secondary"/>
+                    <button name="action_view_report" type="object" string="Generate Report" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" class="btn-secondary"/>
                 </footer>
             </form>
         </field>
     </record>
 
     <record id="action_visit_report_from_patient" model="ir.actions.act_window">
-        <field name="name">Звіт по візитах</field>
+        <field name="name">Appointments report</field>
         <field name="res_model">visit.report.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
@@ -34,7 +34,7 @@
     </record>
 
     <record id="action_visit_report_from_doctor" model="ir.actions.act_window">
-        <field name="name">Звіт по візитах</field>
+        <field name="name">Appointments report</field>
         <field name="res_model">visit.report.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

@@ -4,6 +4,8 @@ from odoo.exceptions import ValidationError
 
 
 class OSLDoctor(models.Model):
+    """ List of Doctors with Category and Personal info
+    """
     _name = 'osl.hospital.doctor'
     _inherit = 'osl.hospital.medic.info'
     _description = 'Doctor'
@@ -66,17 +68,22 @@ class OSLDoctor(models.Model):
 
     @api.constrains('mentor')
     def _check_mentor(self):
+        """Inter can't be a mentor
+        """
         for record in self:
             if record.mentor.is_intern:
-                raise ValidationError("Не можна обрати ментором лікаря, який сам є інтерном")
+                raise ValidationError(self.env._("Inter enable be a Mentors"))
             if record.mentor.id == record.id:
-                raise ValidationError("Не можна обрати ментором себє")
+                raise ValidationError(self.env._("You can't set you self as Mentor"))
 
     def new_appointments(self):
+        """
+        :return: Returns the 'action' for opening the form for a new appointment
+        """
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'New Appointment by Patient',
+            'name': self.env._('New Appointment by Patient'),
             'res_model': 'osl.hospital.appointment',
             'view_mode': 'form',
             'target': 'new',
@@ -84,18 +91,27 @@ class OSLDoctor(models.Model):
         }
 
     def get_appointment_list(self):
+        """
+        :return: List of appointments for current doctor
+        """
         self.ensure_one()
         appointment_list = self.env['osl.hospital.appointment'].search(
             [('doctor_id', '=', self.id)])
         return appointment_list.sorted('scheduled_date DESC')
 
     def get_patient_list(self):
+        """
+        :return: List of patients for current doctor
+        """
         self.ensure_one()
         return self.env['osl.hospital.patient'].search(
             [('doctor_id', '=', self.id)])
 
     @api.depends('intern_ids', 'intern_ids.name')
     def _compute_intern_names_html(self):
+        """
+        :return: html-formated text for Kanban with intern list
+        """
         for doctor in self:
             doctor.intern_names_html = ''.join(
                 f'<div>{intern.name or ""}</div>'

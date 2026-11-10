@@ -1,10 +1,14 @@
+
 from odoo import api, fields, models
 
 
 class OSLMedicInfo(models.AbstractModel):
+    """General information regarding blood type and date of birth for the doctor and the patient
+    """
     _name = 'osl.hospital.medic.info'
     _description = 'Medical info'
 
+    """ blood_type is not should to be translated """
     blood_type = fields.Selection(
         selection=[
             ('type_1', 'O(I)'),
@@ -12,7 +16,8 @@ class OSLMedicInfo(models.AbstractModel):
             ('type_3', 'B(III)'),
             ('type_4', 'AB(IV)'),
         ],
-        string='Blood Type'
+        string='Blood Type',
+        translate=False
     )
 
     gender = fields.Selection(
@@ -33,6 +38,9 @@ class OSLMedicInfo(models.AbstractModel):
 
     @api.depends('birth_date')
     def _compute_age(self):
+        """
+        :return: Calculated age of patient or doctor
+        """
         today = fields.Date.today()
         for record in self:
             if not record.birth_date:

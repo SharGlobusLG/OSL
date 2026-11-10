@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class OSLSetDoctorWizard(models.TransientModel):
     _name = "mass.reassign.doctor.wizard"
-    _description = "Візард масового перевизначення персонального лікаря для пацієнтів"
+    _description = "Set Doctor Group Wizard"
 
     patient_ids = fields.Many2many(
         comodel_name="osl.hospital.patient",
@@ -30,7 +30,7 @@ class OSLSetDoctorWizard(models.TransientModel):
     def action_confirm(self):
         self.ensure_one()
         if not self.doctor_id:
-            raise UserError("Please select doctor")
+            raise UserError(self.env._("Please select doctor"))
         return {'type': 'ir.actions.act_window_close'}
 
     @api.model

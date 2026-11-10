@@ -2,6 +2,10 @@ from odoo import fields, models
 
 
 class OSLDoctorCategory(models.Model):
+    """Contains categories of doctors.
+    For each category, you can set flags indicating
+    whether it represents an intern or a doctor of the highest category.
+    """
     _name = 'osl.hospital.doctor.category'
     _description = 'Doctor Category'
 
