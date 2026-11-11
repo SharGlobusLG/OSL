@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="up_product_list">
+            <field name="name">up.product.list ()</field>
+            <field name="model">product.product</field>
+            <!--field name="mode">primary</field>
+            <field name="inherit_id" ref="product.product_template_form_view" /-->
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                </list>
+            </field>
+
+        </record>
+
+        <record model="ir.ui.view" id="up_product_form">
+            <field name="name">up.product.form ()</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="mode">primary</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Service List" name="service_list">
+                        <p>TEST</p>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="up_product_action_window">
+            <field name="name">Product</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="ut_product_menu_item"
+                  name="Product"
+                  parent="up_general_data_menu"
+                  action="up_product_action_window"/>
+
+    </data>
+</odoo>
