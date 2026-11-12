@@ -1,5 +1,5 @@
 {
-    'name': "Utility Pyments",
+    'name': "Utility Payments",
     'sequence': -16,
     'summary': "Module for personal tracking of utility payments",
 
@@ -20,10 +20,14 @@ Allows for the recording of utility charges and payments made for utility servic
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+
         'views/up_menu.xml',
         'views/up_apartment_view.xml',
         'views/up_product_view.xml',
         'views/up_type_utility_view.xml',
+        'wizard/up_generate_period_wizard_view.xml',
+        'views/up_period_view.xml',
+
 
         'data/up_type_utility_data.xml',
     ],
@@ -36,4 +40,3 @@ Allows for the recording of utility charges and payments made for utility servic
     'installable': True,
     'images': ['static/description/icon.png'],
 }
-

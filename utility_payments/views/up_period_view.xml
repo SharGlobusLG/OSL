@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="up_period_list">
+            <field name="name">up.period.list ()</field>
+            <field name="model">up.period</field>
+            <field name="arch" type="xml">
+                <!--list create="false" edit="false" delete="false"-->
+                <list>
+                    <header>
+                        <!--button name="action_open_generate_wizard" type="object" string="Generate Period List" class="btn-primary" /-->
+                        <button name="%(up_period_generate_wizard_act_window)d"
+                                type="action"
+                                string="Generate Period List"
+                                class="btn-primary"/>
+                    </header>
+                    <field name="name"/>
+                    <field name="date" readonly="true"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="up_period_action_window">
+            <field name="name">Period list</field>
+            <field name="res_model">up.period</field>
+            <field name="view_mode">list</field>
+        </record>
+
+        <menuitem id="up_period_menu_item"
+                  name="Period's list"
+                  parent="up_general_data_menu"
+                  action="up_period_action_window"
+                  sequence="50"/>
+    </data>
+</odoo>

@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class UTApartment(models.Model):
+class UPApartment(models.Model):
     _name = 'up.apartment'
     _description = 'Apartment'
 
