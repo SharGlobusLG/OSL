@@ -18,4 +18,3 @@
 #         return http.request.render('utility_pyments.object', {
 #             'object': obj
 #         })
-

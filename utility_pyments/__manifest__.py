@@ -21,8 +21,11 @@ Allows for the recording of utility charges and payments made for utility servic
     'data': [
         'security/ir.model.access.csv',
         'views/up_menu.xml',
-        'views/up_apartments_view.xml',
+        'views/up_apartment_view.xml',
         'views/up_product_view.xml',
+        'views/up_type_utility_view.xml',
+
+        'data/up_type_utility_data.xml',
     ],
 
     # only loaded in demonstration mode

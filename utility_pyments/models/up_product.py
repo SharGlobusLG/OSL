@@ -1,15 +1,20 @@
-from odoo import models, fields, api
+from odoo import fields, models
 
 
 class UPProductProduct(models.Model):
     _name = 'product.product'
     _inherit = ['product.product']
 
-    personal_account=fields.Char(
+    type_utility_id = fields.Many2one(
+        comodel_name='up.type.utility',
+        string='Type of Utility',
+        ondelete='restrict',
+    )
+    personal_account = fields.Char(
         string='Personal Account',
         )
 
-    provider   =fields.Many2one(
+    provider_id = fields.Many2one(
         string='Provider',
         comodel_name='res.partner',
     )

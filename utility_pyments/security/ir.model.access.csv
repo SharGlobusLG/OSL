@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_up_apartment,access_up_apartment,model_ut_apartment,base.group_user,1,1,1,1
+access_up_apartment,access_up_apartment,model_up_apartment,base.group_user,1,1,1,1
 access_up_product,access_up_product,product.model_product_product,base.group_user,1,1,1,1
+access_up_type_utility,access_up_type_utility,model_up_type_utility,base.group_user,1,1,1,1
+access_up_apartment_utility,access_up_apartment_utility,model_up_apartment_utility,base.group_user,1,1,1,1

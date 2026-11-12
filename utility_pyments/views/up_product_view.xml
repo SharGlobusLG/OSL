@@ -4,14 +4,16 @@
         <record model="ir.ui.view" id="up_product_list">
             <field name="name">up.product.list ()</field>
             <field name="model">product.product</field>
-            <!--field name="mode">primary</field>
-            <field name="inherit_id" ref="product.product_template_form_view" /-->
+            <field name="priority">1</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="product.product_product_tree_view" />
             <field name="arch" type="xml">
-                <list>
-                    <field name="name"/>
-                </list>
+                <xpath expr="//field" position="before">
+                        <field name="type_utility_id" />
+                        <field name="personal_account" />
+                        <field name="provider_id" />
+                </xpath>
             </field>
-
         </record>
 
         <record model="ir.ui.view" id="up_product_form">
@@ -21,10 +23,11 @@
             <field name="mode">primary</field>
             <field name="priority">1</field>
             <field name="arch" type="xml">
-
                 <xpath expr="//notebook" position="inside">
-                    <page string="Service List" name="service_list">
-                        <p>TEST</p>
+                    <page string="Utility Service" name="utility_service">
+                        <field name="type_utility_id" string="Type of Utility"/>
+                        <field name="personal_account"/>
+                        <field name="provider_id"/>
                     </page>
                 </xpath>
             </field>
@@ -39,7 +42,8 @@
         <menuitem id="ut_product_menu_item"
                   name="Product"
                   parent="up_general_data_menu"
-                  action="up_product_action_window"/>
+                  action="up_product_action_window"
+                  sequence="30"/>
 
     </data>
 </odoo>
