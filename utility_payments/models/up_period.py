@@ -1,23 +1,33 @@
+import logging
+
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields, models, api
-from odoo.tools import date_utils
 
+_logger = logging.getLogger(__name__)
 
 class UPApartmentUtility(models.Model):
     _name = 'up.period'
     _description = 'List of periods (months) for which accruals and payments are recorded'
 
-    name = fields.Char(
-        readonly=True,
-        store=True,
-        compute='_compute_name',
-    )
     date = fields.Date(
         string='Date',
+        required=True,
+    )
+
+    name = fields.Char(
+        string='Name',
+        compute='_compute_name',
         readonly=True,
         required=True,
     )
+
+    @api.onchange('date')
+    def _onchange_date(self):
+        self.ensure_one()
+        if self.date:
+            self.date = self._month_start(self.date)
+
 
     sql_constraints = [
         ('uniq_period_date', 'unique(date)',
@@ -27,9 +37,6 @@ class UPApartmentUtility(models.Model):
     @api.depends('date')
     def _compute_name(self):
         """Generates a name based on the date"""
-        # for rec in self:
-        #     rec.name = rec.date.strftime('%b %Y')
-
         months = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень',
                   'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень',
                   'Листопад', 'Грудень']
@@ -38,6 +45,13 @@ class UPApartmentUtility(models.Model):
                 rec.name = f"{months[rec.date.month - 1]} {rec.date.year}"
             else:
                 rec.name = False
+
+    def write(self, vals):
+        for rec in self:
+            begin_month = self._month_start(rec.date)
+            if 'date' in vals and vals['date'] != begin_month:
+                vals['date'] = begin_month
+        return super().write(vals)
 
     def action_open_generate_wizard(self):
         return {
