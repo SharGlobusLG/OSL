@@ -5,10 +5,13 @@ class UPApartment(models.Model):
     _name = 'up.apartment'
     _description = 'Apartment'
 
+    active= fields.Boolean(default=True)
+
     name = fields.Char(
         string='Name',
         required=True,
     )
+
     address = fields.Char(
         string='Address',
         required=True,

@@ -3,5 +3,6 @@ from . import (
     up_apartment,
     up_apartment_utility,
     up_product,up_period,
-    up_charge
+    up_charge,
+    up_charge_line
 )

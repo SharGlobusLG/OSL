@@ -17,24 +17,32 @@
             <field name="arch" type="xml">
                 <form>
                     <header></header>
-                    <group>
-                        <field name="name"/>
-                        <field name="address"/>
-                    </group>
-                    <notebook>
-                        <page string="Utility list" name="utility_list">
-                            <field name="apartment_utility_ids">
-                                <list editable="bottom">
-                                    <field name="apartment_id" column_invisible="True" />
-                                    <field name="product_id"/>
-                                    <field name="type_utility_id" />
-                                    <field name="calc_type"/>
-                                    <field name="fixed_sum" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="calc_type!='fixed'" />
-                                    <field name="currency_id" column_invisible="True" />
-                                </list>
-                            </field>
-                        </page>
-                    </notebook>
+                    <sheet>
+                        <widget name="web_ribbon"
+                                title="Archived"
+                                bg_color="text-bg-danger"
+                                invisible="active"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                        </group>
+                        <notebook>
+                            <page string="Utility list" name="utility_list">
+                                <field name="apartment_utility_ids">
+                                    <list editable="bottom">
+                                        <field name="apartment_id" column_invisible="True"/>
+                                        <field name="product_id"/>
+                                        <field name="type_utility_id"/>
+                                        <field name="calc_type"/>
+                                        <field name="fixed_sum" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"
+                                               readonly="calc_type!='fixed'"/>
+                                        <field name="currency_id" column_invisible="True"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
 
                 </form>
             </field>

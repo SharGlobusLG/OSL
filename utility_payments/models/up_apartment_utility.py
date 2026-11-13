@@ -22,8 +22,6 @@ class UPApartmentUtility(models.Model):
 
     type_utility_id = fields.Many2one(
         string='Utility',
-        #comodel_name='up.type.utility',
-        #compute= lambda self: self.product_id.type_utility,
         related='product_id.type_utility_id',
         store=False,
         readonly=True,

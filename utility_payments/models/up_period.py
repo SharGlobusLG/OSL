@@ -53,6 +53,7 @@ class UPApartmentUtility(models.Model):
                 vals['date'] = begin_month
         return super().write(vals)
 
+    @api.model
     def action_open_generate_wizard(self):
         return {
             'type': 'ir.actions.act_window',

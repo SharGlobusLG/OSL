@@ -27,15 +27,15 @@ Allows for the recording of utility charges and payments made for utility servic
         'views/up_type_utility_view.xml',
         'wizard/up_generate_period_wizard_view.xml',
         'views/up_period_view.xml',
-
+        'views/up_charge_view.xml',
 
         'data/up_type_utility_data.xml',
     ],
 
     # only loaded in demonstration mode
-    # 'demo': [
-    #     'demo/demo.xml',
-    # ],
+    'demo': [
+        'demo/up_apartment_demo.xml',
+    ],
 
     'installable': True,
     'images': ['static/description/icon.png'],
